@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Demo</title>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --background-color: #f8f9fa;
+            --text-color: #2b2d42;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            min-height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Demo</h1>
+        
+        <div class="input-group">
+            <label for="nameInput">Enter your name:</label>
+            <input type="text" id="nameInput" placeholder="John Doe">
+        </div>
+        
+        <button id="greetButton">Greet Me</button>
+        
+        <div class="result" id="resultArea">
+            Your greeting will appear here...
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const nameInput = document.getElementById('nameInput');
+        const greetButton = document.getElementById('greetButton');
+        const resultArea = document.getElementById('resultArea');
+        
+        // Add event listener to button
+        greetButton.addEventListener('click', function() {
+            const name = nameInput.value.trim();
+            
+            if (name === '') {
+                resultArea.innerHTML = 'Please enter your name first!';
+                resultArea.style.color = '#e63946';
+            } else {
+                // Create a greeting with animation
+                let greeting = `Hello, ${name}! 👋`;
+                let animatedGreeting = '';
+                
+                // Simple animation effect
+                function animateGreeting(index = 0) {
+                    if (index < greeting.length) {
+                        animatedGreeting += greeting.charAt(index);
+                        resultArea.innerHTML = animatedGreeting;
+                        resultArea.style.color = 'var(--text-color)';
+                        setTimeout(() => animateGreeting(index + 1), 50);
+                    }
+                }
+                
+                animateGreeting();
+            }
+        });
+        
+        // Allow Enter key to trigger the greeting
+        nameInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                greetButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
